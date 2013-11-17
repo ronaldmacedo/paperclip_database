@@ -23,6 +23,7 @@ Feature: Rails integration
         def show
           style = params[:style] ? params[:style] : 'original'
           record = User.find(params[:id])
+          raise 'Error' unless record.attachment.exists?(style)
           send_data record.attachment.file_contents(style),
                       :filename => record.attachment_file_name,
                       :type => record.attachment_content_type
